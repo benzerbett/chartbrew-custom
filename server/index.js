@@ -32,7 +32,7 @@ app.settings = settings;
 app.use(busboy());
 if (process.env.NODE_ENV !== "production") {
   app.set("trust proxy", true);
-  app.use(morgan("dev"));
+  app.use(morgan("combined"));
 }
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));

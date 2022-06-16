@@ -6,6 +6,7 @@ const Umzug = require("umzug");
 const basename = path.basename(__filename);
 const config = process.env.NODE_ENV === "production"
   ? require("../config/config.js").production : require("../config/config.js").development;
+  
 const packageJson = require("../../package.json");
 
 const db = {};

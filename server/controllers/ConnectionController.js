@@ -455,7 +455,7 @@ class ConnectionController {
       });
   }
 
-  async runApiRequest(id, chartId, dataRequest, getCache) {
+  async runApiRequest(id, chartId, dataRequest, getCache, ignoreParams) {
     if (getCache) {
       // check if there is a cache available and valid
       try {
@@ -487,11 +487,14 @@ class ConnectionController {
         }
 
         tempUrl += route;
+        if(tempUrl.indexOf("dhis") > -1) {
+          ignoreParams = true;
+        }
 
         const queryParams = querystring.parse(tempUrl.split("?")[1]);
 
         // if any queryParams has variables, modify them here
-        if (queryParams && Object.keys(queryParams).length > 0) {
+        if (queryParams && Object.keys(queryParams).length > 0 && !ignoreParams) {
           // first, check for the keys to avoid making an unnecessary query to the DB
           const keysFound = {};
           Object.keys(queryParams).forEach((q) => {
@@ -581,10 +584,14 @@ class ConnectionController {
             });
           }
         }
-
+        if(ignoreParams === true) {
+          options.url = tempUrl;
+          delete options.qs;
+        }
         return request(options);
       })
       .then((response) => {
+        // console.log(':::::::::::::::::::::::::response', response)
         if (dataRequest.pagination) {
           // cache the data for later use
           const dataToCache = {
