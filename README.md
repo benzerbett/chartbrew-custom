@@ -1,4 +1,4 @@
-### Default [https://chartbrew.com](chartbrew.com) with minor customizations to accommodate DHIS2 Charts 
+### Default [chartbrew.com](https://chartbrew.com) with minor customizations to accommodate DHIS2 Charts 
 
 <p align="center">
   <a href="https://chartbrew.com">
