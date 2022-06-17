@@ -487,9 +487,6 @@ class ConnectionController {
         }
 
         tempUrl += route;
-        if(tempUrl.indexOf("dhis") > -1) {
-          ignoreParams = true;
-        }
 
         const queryParams = querystring.parse(tempUrl.split("?")[1]);
 
@@ -550,10 +547,13 @@ class ConnectionController {
           for (const opt of globalHeaders) {
             headers = Object.assign(opt, headers);
           }
-
+          
           if (dataRequest.headers) {
             headers = Object.assign(dataRequest.headers, headers);
           }
+        }
+        if(headers.IgnoreParams && headers.IgnoreParams === "true") {
+          ignoreParams = true;
         }
 
         options.headers = headers;
